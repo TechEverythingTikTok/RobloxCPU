@@ -1267,8 +1267,8 @@ Dispatch[Instructions.FBDRAW_LINE] = function(reg1: number, reg2: number, reg3: 
 		return
 	end
 	
-	local x_coord = band(reg1, 0xFFFF)
-	local y_coord = band(rshift(reg1, 8), 0xFFFF)
+	local x_coord = band(a, 0xFFFF)
+	local y_coord = band(rshift(a, 8), 0xFFFF)
 
 	local row = y_coord * width
 
@@ -1602,11 +1602,12 @@ Dispatch[Instructions.L_LOADI] = function(reg1: number)
 	CPU[reg1] = readu32(Memory, b)
 end
 
-Dispatch[Instructions.L_STOREI] = function(reg1: number)
+Dispatch[Instructions.L_STOREI] = function()
 	local pc = CPU[0x12]
-	local a = CPU[reg1]	-- addr
-	local b = readu32(Memory, pc)
+	local a = readu32(Memory, pc)
 	CPU[0x12] = pc + 4
+	local b = readu32(Memory, pc + 4)
+	CPU[0x12] = pc + 8
 	if not a then
 		Dispatch[Instructions.INT](0)
 		return
