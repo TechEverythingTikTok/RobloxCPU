@@ -1890,6 +1890,350 @@ Dispatch[Instructions.L_JNII] = function()
 	end
 end
 
+Dispatch[Instructions.T_ADD] = function(reg1: number, reg2: number, reg3: number)
+	if reg1 > 0x10 then
+		Dispatch[Instructions.INT](2)
+		return
+	end
+	
+	local flags = 0
+	local a = CPU[reg1]
+	local b = CPU[reg2]
+	local c = CPU[reg3]
+
+	if not a or not b or c then
+		Dispatch[Instructions.INT](0)
+		return
+	end
+
+	local raw = a + b + c
+	local result = band(raw, 0xFFFFFFFF)
+
+	CPU[reg1] = result
+
+	if raw > RegisterSize then
+		flags = bor(flags, 0b10000000)
+	end
+
+	if result == 0 then
+		flags = bor(flags, 0b01000000)
+	end
+
+	if band(result, 0x80000000) ~= 0 then
+		flags = bor(flags, 0b00010000)
+	end
+
+	local overflow = band(bxor(a, result), bxor(b, result))
+	if band(overflow, 0x80000000) ~= 0 then
+		flags = bor(flags, 0b00100000)
+	end
+
+	CPU[0x11] = flags
+end
+
+Dispatch[Instructions.T_SUB] = function(reg1: number, reg2: number, reg3: number)
+	if reg1 > 0x10 then
+		Dispatch[Instructions.INT](2)
+		return
+	end
+
+	local flags = 0
+	local a = CPU[reg1]
+	local b = CPU[reg2]
+	local c = CPU[reg3]
+
+	if not a or not b or not c then
+		Dispatch[Instructions.INT](0)
+		return
+	end
+
+	local raw = a - b - c
+	local result = band(raw, 0xFFFFFFFF)
+	
+	CPU[reg1] = result
+	
+	if a < b then
+		flags = bor(flags, 0b10000000)
+	end
+	
+	if result == 0 then
+		flags = bor(flags, 0b01000000)
+	end
+	
+	if band(result, 0x80000000) ~= 0 then
+		flags = bor(flags, 0b00010000)
+	end
+	
+	local overflow = band(bxor(a, b), bxor(a, result))
+	if band(overflow, 0x80000000) ~= 0 then
+		flags = bor(flags, 0b00100000)
+	end
+
+	CPU[0x11] = flags
+end
+
+Dispatch[Instructions.T_MUL] = function(reg1: number, reg2: number, reg3: number)
+	if reg1 > 0x10 then
+		Dispatch[Instructions.INT](2)
+		return
+	end
+
+	local flags = 0
+	local a = CPU[reg1]
+	local b = CPU[reg2]
+	local c = CPU[reg3]
+
+	if not a or not b or not c then
+		Dispatch[Instructions.INT](0)
+		return
+	end
+
+	local raw = a * b * c
+	local result = band(raw, 0xFFFFFFFF)
+
+	CPU[reg1] = result
+
+	if raw > RegisterSize then
+		flags = bor(flags, 0b10000000)
+	end
+
+	if result == 0 then
+		flags = bor(flags, 0b01000000)
+	end
+
+	if band(result, 0x80000000) ~= 0 then
+		flags = bor(flags, 0b00010000)
+	end
+	
+	local overflow = band(bxor(a, result), bxor(b, result))
+	if band(overflow, 0x80000000) ~= 0 then
+		flags = bor(flags, 0b00100000)
+	end
+
+	CPU[0x11] = flags
+end
+
+Dispatch[Instructions.T_DIV] = function(reg1: number, reg2: number, reg3: number)
+	if reg1 > 0x10 then
+		Dispatch[Instructions.INT](2)
+		return
+	end
+
+	local flags = 0
+	local a = CPU[reg1]
+	local b = CPU[reg2]
+	local c = CPU[reg3]
+
+	if not a or not b or not c then
+		Dispatch[Instructions.INT](0)
+		return
+	end
+	
+	if b == 0 or c == 0 then
+		Dispatch[Instructions.INT](3)
+		return
+	end
+	
+	local raw = floor(a / b / c)
+	local result = band(raw, 0xFFFFFFFF)
+
+	CPU[reg1] = result
+
+	if raw > RegisterSize then
+		flags = bor(flags, 0b10000000)
+	end
+
+	if result == 0 then
+		flags = bor(flags, 0b01000000)
+	end
+
+	if band(result, 0x80000000) ~= 0 then
+		flags = bor(flags, 0b00010000)
+	end
+
+	local overflow = band(bxor(a, result), bxor(b, result))
+	if band(overflow, 0x80000000) ~= 0 then
+		flags = bor(flags, 0b00100000)
+	end
+
+	CPU[0x11] = flags
+end
+
+Dispatch[Instructions.T_MOD] = function(reg1: number, reg2: number, reg3: number)
+	if reg1 > 0x10 then
+		Dispatch[Instructions.INT](2)
+		return
+	end
+
+	local flags = 0
+	local a = CPU[reg1]
+	local b = CPU[reg2]
+	local c = CPU[reg3]
+
+	if not a or not b or not c then
+		Dispatch[Instructions.INT](0)
+		return
+	end
+	
+	if b == 0 or c == 0 then
+		Dispatch[Instructions.INT](3)
+		return
+	end
+	
+	local raw = a % b % c
+	local result = band(raw, 0xFFFFFFFF)
+
+	CPU[reg1] = result
+
+	if raw > RegisterSize then
+		flags = bor(flags, 0b10000000)
+	end
+
+	if result == 0 then
+		flags = bor(flags, 0b01000000)
+	end
+
+	if band(result, 0x80000000) ~= 0 then
+		flags = bor(flags, 0b00010000)
+	end
+
+	local overflow = band(bxor(a, result), bxor(b, result))
+	if band(overflow, 0x80000000) ~= 0 then
+		flags = bor(flags, 0b00100000)
+	end
+
+	CPU[0x11] = flags
+end
+
+Dispatch[Instructions.T_CMP] = function(reg1: number, reg2: number, reg3: number)
+	if reg1 > 0x10 then
+		Dispatch[Instructions.INT](2)
+		return
+	end
+
+	local flags = 0
+	local a = CPU[reg1]
+	local b = CPU[reg2]
+	local c = CPU[reg3]
+
+	if not a or not b or not c then
+		Dispatch[Instructions.INT](0)
+		return
+	end
+
+	local raw = a - b - c
+	local result = band(raw, 0xFFFFFFFF)
+
+	if a < b then
+		flags = bor(flags, 0b10000000)
+	end
+
+	if result == 0 then
+		flags = bor(flags, 0b01000000)
+	end
+
+	if band(result, 0x80000000) ~= 0 then
+		flags = bor(flags, 0b00010000)
+	end
+
+	local overflow = band(bxor(a, b), bxor(a, result))
+	if band(overflow, 0x80000000) ~= 0 then
+		flags = bor(flags, 0b00100000)
+	end
+
+	CPU[0x11] = flags
+end
+
+Dispatch[Instructions.T_AND] = function(reg1: number, reg2: number, reg3: number)
+	if reg1 > 0x10 then
+		Dispatch[Instructions.INT](2)
+		return
+	end
+
+	local flags = 0
+	local a = CPU[reg1]
+	local b = CPU[reg2]
+	local c = CPU[reg3]
+
+	if not a or not b or not c then
+		Dispatch[Instructions.INT](0)
+		return
+	end
+	
+	local result = band(a, b, c)
+	CPU[reg1] = result
+	
+	if result == 0 then
+		flags = bor(flags, 0b01000000)
+	end
+	
+	if band(result, 0x80000000) ~= 0 then
+		flags = bor(flags, 0b00010000)
+	end
+	
+	CPU[0x11] = flags
+end
+
+Dispatch[Instructions.T_OR] = function(reg1: number, reg2: number, reg3: number)
+	if reg1 > 0x10 then
+		Dispatch[Instructions.INT](2)
+		return
+	end
+
+	local flags = 0
+	local a = CPU[reg1]
+	local b = CPU[reg2]
+	local c = CPU[reg3]
+
+	if not a or not b or not c then
+		Dispatch[Instructions.INT](0)
+		return
+	end
+
+	local result = bor(a, b, c)
+	CPU[reg1] = result
+
+	if result == 0 then
+		flags = bor(flags, 0b01000000)
+	end
+
+	if band(result, 0x80000000) ~= 0 then
+		flags = bor(flags, 0b00010000)
+	end
+
+	CPU[0x11] = flags
+end
+
+Dispatch[Instructions.T_XOR] = function(reg1: number, reg2: number, reg3: number)
+	if reg1 > 0x10 then
+		Dispatch[Instructions.INT](2)
+		return
+	end
+
+	local flags = 0
+	local a = CPU[reg1]
+	local b = CPU[reg2]
+	local c = CPU[reg3]
+
+	if not a or not b or not c then
+		Dispatch[Instructions.INT](0)
+		return
+	end
+
+	local result = bxor(a, b, c)
+	CPU[reg1] = result
+
+	if result == 0 then
+		flags = bor(flags, 0b01000000)
+	end
+
+	if band(result, 0x80000000) ~= 0 then
+		flags = bor(flags, 0b00010000)
+	end
+
+	CPU[0x11] = flags
+end
+
 Dispatch[Instructions.INT] = function(imm8: number) -- int_no
 	imm8 = band(imm8, 0xFF)
 	-- 0 = Invalid Register

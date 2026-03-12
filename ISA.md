@@ -283,3 +283,30 @@
 > To be implemented and decided
 
 > [0x58] [] [] []
+
+### T_ADD
+> [0x59] [Rdest] [Rsrc1] [Rsrc2]
+
+### T_SUB
+> [0x5A] [Rdest] [Rsrc1] [Rsrc2]
+
+### T_MUL
+> [0x5B] [Rdest] [Rsrc1] [Rsrc2]
+
+### T_DIV
+> [0x5C] [Rdest] [Rsrc1] [Rsrc2]
+
+### T_MOD
+> [0x5D] [Rdest] [Rsrc1] [Rsrc2]
+
+### T_CMP
+> [0x5E] [Rdest] [Rsrc1] [Rsrc2]
+
+### T_AND
+> [0x5F] [Rdest] [Rsrc1] [Rsrc2]
+
+### T_OR
+> [0x60] [Rdest] [Rsrc1] [Rsrc2]
+
+### T_XOR
+> [0x61] [Rdest] [Rsrc1] [Rsrc2]
