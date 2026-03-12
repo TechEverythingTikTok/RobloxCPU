@@ -2242,6 +2242,7 @@ Dispatch[Instructions.INT] = function(imm8: number) -- int_no
 	-- 3 = DBZ
 	-- 4 = Stack Overflow
 	-- 5 = Stack Underflow
+	
 	-- 6-10 = Hardware interrupts
 	-- 11-255 = Software interrupts
 	if CPU[0x14] ~= 0 then
