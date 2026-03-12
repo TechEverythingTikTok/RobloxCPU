@@ -237,6 +237,7 @@
 
 ### L_NOTI
 > Not implemented, dropped.
+
 > [0x4A] [] [] []
 
 ### L_JMPI
@@ -280,4 +281,5 @@
 
 ### L_FBDRAW_BITMAPI
 > To be implemented and decided
+
 > [0x58] [] [] []
