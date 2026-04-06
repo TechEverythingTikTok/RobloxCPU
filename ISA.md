@@ -182,13 +182,13 @@
 > [0x37] [Rdest] [imm_lower] [imm_upper]
 
 ### L_FBDRAW_PIXELI
-> [0x38] [] [] [] [(2b) pos_x] [(2b) pos_y] [(4b) color]
+> [0x38] [] [] [] [(u16) pos_x] [(u16) pos_y] [(u32) color]
 
 ### L_FBDRAW_RECTI
-> [0x39] [] [] [] [(2b) x_coord] [(2b) y_coord] [(4b) color] [(2b) size_x] [(2b) size_y]
+> [0x39] [] [] [] [(u16) x_coord] [(u16) y_coord] [(u32) color] [(u16) size_x] [(u16) size_y]
 
 ### L_FBDRAW_LINEI
-> [0x3A] [] [] [] [(2b) x_coord] [(2b) y_coord] [(2b) len] [(4b) color]
+> [0x3A] [] [] [] [(u16) x_coord] [(u16) y_coord] [(u16) len] [(u32) color]
 
 ### FBDRAW_PIXEL
 > [0x3B] [Rcoord_xy] [Rcolor] []
@@ -200,40 +200,40 @@
 > [0x3D] [Rcoord_xy] [Rlen] [Rcolor]
 
 ### L_ADDI
-> [0x3E] [Rdest] [] [] [(4b) imm32]
+> [0x3E] [Rdest] [] [] [(u32) imm32]
 
 ### L_SUBI
-> [0x3F] [Rdest] [] [] [(4b) imm32]
+> [0x3F] [Rdest] [] [] [(u32) imm32]
 
 ### L_MULI
-> [0x40] [Rdest] [] [] [(4b) imm32]
+> [0x40] [Rdest] [] [] [(u32) imm32]
 
 ### L_DIVI
-> [0x41] [Rdest] [] [] [(4b) imm32]
+> [0x41] [Rdest] [] [] [(u32) imm32]
 
 ### L_MODI
-> [0x42] [Rdest] [] [] [(4b) imm32]
+> [0x42] [Rdest] [] [] [(u32) imm32]
 
 ### L_MOVI
-> [0x43] [Rdest] [] [] [(4b) imm32]
+> [0x43] [Rdest] [] [] [(u32) imm32]
 
 ### L_LOADI
-> [0x44] [Rdest] [] [] [(4b) addr]
+> [0x44] [Rdest] [] [] [(u32) addr]
 
 ### L_STOREI
-> [0x45] [] [] [] [(4b) addr] [(4b) val]
+> [0x45] [] [] [] [(u32) addr] [(u32) val]
 
 ### L_CMPI
-> [0x46] [Rdest] [] [] [(4b) imm32]
+> [0x46] [Rdest] [] [] [(u32) imm32]
 
 ### L_ANDI
-> [0x47] [Rdest] [] [] [(4b) imm32]
+> [0x47] [Rdest] [] [] [(u32) imm32]
 
 ### L_ORI
-> [0x48] [Rdest] [] [] [(4b) imm32]
+> [0x48] [Rdest] [] [] [(u32) imm32]
 
 ### L_XORI
-> [0x49] [Rdest] [] [] [(4b) imm32]
+> [0x49] [Rdest] [] [] [(u32) imm32]
 
 ### L_NOTI
 > Not implemented, dropped.
@@ -241,43 +241,43 @@
 > [0x4A] [] [] []
 
 ### L_JMPI
-> [0x4B] [] [] [] [(4b) addr]
+> [0x4B] [] [] [] [(u32) addr]
 
 ### L_JEI
-> [0x4C] [] [] [] [(4b) addr]
+> [0x4C] [] [] [] [(u32) addr]
 
 ### L_JZI
-> [0x4D] [] [] [] [(4b) addr]
+> [0x4D] [] [] [] [(u32) addr]
 
 ### L_JNEI
-> [0x4E] [] [] [] [(4b) addr]
+> [0x4E] [] [] [] [(u32) addr]
 
 ### L_JNZI
-> [0x4F] [] [] [] [(4b) addr]
+> [0x4F] [] [] [] [(u32) addr]
 
 ### L_JCI
-> [0x50] [] [] [] [(4b) addr]
+> [0x50] [] [] [] [(u32) addr]
 
 ### L_JNCI
-> [0x51] [] [] [] [(4b) addr]
+> [0x51] [] [] [] [(u32) addr]
 
 ### L_JNI
-> [0x52] [] [] [] [(4b) addr]
+> [0x52] [] [] [] [(u32) addr]
 
 ### L_JNNI
-> [0x53] [] [] [] [(4b) addr]
+> [0x53] [] [] [] [(u32) addr]
 
 ### L_JOI
-> [0x54] [] [] [] [(4b) addr]
+> [0x54] [] [] [] [(u32) addr]
 
 ### L_JNOI
-> [0x55] [] [] [] [(4b) addr]
+> [0x55] [] [] [] [(u32) addr]
 
 ### L_JII
-> [0x56] [] [] [] [(4b) addr]
+> [0x56] [] [] [] [(u32) addr]
 
 ### L_JNII
-> [0x57] [] [] [] [(4b) addr]
+> [0x57] [] [] [] [(u32) addr]
 
 ### L_FBDRAW_BITMAPI
 > To be implemented and decided
