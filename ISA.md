@@ -310,3 +310,6 @@
 
 ### T_XOR
 > [0x61] [Rdest] [Rsrc1] [Rsrc2]
+
+### WAIT
+> [0x62] [imm8] [] []
