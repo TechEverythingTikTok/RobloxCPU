@@ -2288,6 +2288,10 @@ Dispatch[Instructions.LITA] = function(reg1: number)
 	CPU[0x13] = a
 end
 
+Dispatch[Instructions.WAIT] = function(ms: number)
+	task.wait(ms / 1000)
+end
+
 function CPU.FDE()
 	local cycle_count = 0
 
