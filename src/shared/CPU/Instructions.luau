@@ -101,4 +101,5 @@ return {
 	T_AND = 0x5F,
 	T_OR = 0x60,
 	T_XOR = 0x61,
+	WAIT = 0x62
 }
