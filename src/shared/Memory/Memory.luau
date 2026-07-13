@@ -1,3 +1,4 @@
+-- Discord: itsaxgam | Roblox: Alexandru2201913
 local Memory = {}
 
 Memory.MemorySize = 67_108_864
