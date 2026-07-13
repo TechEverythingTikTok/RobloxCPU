@@ -1,3 +1,4 @@
+-- Discord: itsaxgam | Roblox: Alexandru2201913
 return {
 	NOP = 0x00,
 	ADD = 0x01,
