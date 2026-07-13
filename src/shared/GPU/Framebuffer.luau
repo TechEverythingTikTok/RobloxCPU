@@ -1,3 +1,4 @@
+-- Discord: itsaxgam | Roblox: Alexandru2201913
 --!native
 --!optimize 2
 local Framebuffer = {}
