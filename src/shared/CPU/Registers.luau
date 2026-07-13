@@ -1,3 +1,4 @@
+-- Discord: itsaxgam | Roblox: Alexandru2201913
 local Registers = {}
 
 Registers.R0 	= 0x00	-- R0
